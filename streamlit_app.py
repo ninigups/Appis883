@@ -1,5 +1,6 @@
 import streamlit as st
-import openai
+from openai import OpenAI
+import os
 
 st.title("IS883 OpenAI API Deployment")
 
@@ -8,7 +9,7 @@ prompt = st.text_input("What is the weather like in India during monsoon season?
 num_tokens = st.number_input("Tokens in the response?", min_value=10, max_value=100, value=50, step=5)
 
 ### Load your API Key 
-openai.api_key = st.secrets["OpenAIKey"]
+os.environ["OPENAI_API_KEY"] = st.secrets["OpenAIKey"]
 ### OpenAI stuff
 def generate_response(prompt, max_tokens, temperature):
     response = openai.Completion.create(
